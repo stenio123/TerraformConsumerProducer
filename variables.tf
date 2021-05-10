@@ -17,17 +17,6 @@ variable "organization" {
   default ="TFE_PoV"
 }
 
-# Module variables
-
-variable "module_output1" {
-  description = "Placeholder for a module output name"
-  default ="db_ip_addr"
-}
-variable "module_output2" {
-  description = "Placeholder for another module output name"
-  default ="aws_secret_id"
-}
-
 # Workspace variables
 variable "workspace_owner" {
   description = "User making request"
@@ -52,4 +41,18 @@ variable "workspace_name" {
 variable "terraform_version" {
   description = "For this workspace"
   default = "0.15.3"
+}
+
+# Module variables
+variable "vault_url" {
+  description = "Placeholder for a module output name"
+  default ="db_ip_addr"
+}
+variable "vault_username" {
+  description = "Placeholder for another module output name"
+  default =""
+}
+variable "vault_userpass" {
+  description = "Placeholder for another module output name"
+  default =""
 }

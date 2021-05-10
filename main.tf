@@ -8,7 +8,10 @@ provider "tfe" {
 # Deploys desired module
 module "db-module" {
   source  = "app.terraform.io/TFE_PoV/db-module/aws"
-  version = "2.0.0"
+  vault_url = var.vault_url
+  vault_username = var.vault_username
+  vault_userpass = var.vault_userpass
+  version = "3.0.0"
 }
 
 # Configures user access
@@ -66,6 +69,20 @@ resource "tfe_variable" "module_output2" {
   value        = module.db-module.aws_secret_id
   category     = "terraform"
   sensitive     = false
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "vault_username" {
+  key          = "vault_username"
+  value        = ""
+  category     = "terraform"
+  sensitive     = false
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "vault_userpass" {
+  key          = "vault_userpass"
+  value        = ""
+  category     = "terraform"
+  sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "workspace_var_development" {
