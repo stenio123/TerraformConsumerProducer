@@ -1,8 +1,8 @@
 # Based on the original code of https://github.com/AdamCavaliere/Producer-Repo
 
 provider "tfe" {
-  hostname = var.hostname
-  token    = var.token
+  hostname = var.tfe_hostname
+  token    = var.tfe_token
 }
 
 # Deploys desired module
