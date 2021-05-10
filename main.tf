@@ -53,8 +53,15 @@ resource "tfe_variable" "development_aws_access_key" {
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "module_output1" {
-  key          = "Module Output 1"
-  value        = [module.db-module.${var.module_output1}]
+  key          = "db_ip_addr"
+  value        = [module.db-module.db_ip_addr]
+  category     = "terraform"
+  sensitive     = false
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "module_output2" {
+  key          = "aws_secret_id"
+  value        = [module.db-module.aws_secret_id]
   category     = "terraform"
   sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
