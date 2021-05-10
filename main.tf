@@ -11,7 +11,8 @@ module "db-module" {
   vault_url = var.vault_url
   vault_username = var.vault_username
   vault_userpass = var.vault_userpass
-  version = "3.0.0"
+  # Just use latest version
+  #version = "3.0.0"
 }
 
 # Configures user access
