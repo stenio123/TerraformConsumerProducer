@@ -66,7 +66,7 @@ resource "tfe_variable" "module_output1" {
 }
 resource "tfe_variable" "module_output2" {
   key          = "aws_secret_id"
-  value        = module.db-module.aws_secret_id
+  value        = module.db-module.vault_secret_path
   category     = "terraform"
   sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
