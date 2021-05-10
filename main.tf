@@ -13,6 +13,7 @@ module "db-module" {
 
 # Configures user access
 
+/*
 resource "tfe_team_organization_member" "developer" {
   team_id = "${tfe_team.developers.id}"
   organization_membership_id = "${tfe_organization_membership.developers.id}"
@@ -22,10 +23,11 @@ resource "tfe_team" "developers" {
   name         = "${var.use_case_name}-developers"
   organization = "${var.org}"
 }
+**/
 
 resource "tfe_team_access" "development-dev" {
   access       = "write"
-  team_id      = "${tfe_team.developers.id}"
+  team_id      = var.team_id #"${tfe_team.developers.id}"
   workspace_id = "${tfe_workspace.development.id}"
 }
 
@@ -54,14 +56,14 @@ resource "tfe_variable" "development_aws_access_key" {
 }
 resource "tfe_variable" "module_output1" {
   key          = "db_ip_addr"
-  value        = [module.db-module.db_ip_addr]
+  value        = module.db-module.db_ip_addr
   category     = "terraform"
   sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "module_output2" {
   key          = "aws_secret_id"
-  value        = [module.db-module.aws_secret_id]
+  value        = module.db-module.aws_secret_id
   category     = "terraform"
   sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
