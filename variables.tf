@@ -18,14 +18,7 @@ variable "organization" {
 }
 
 # Module variables
-variable "module_reference" {
-  description = "Reference to a Terraform Private module "
-  default ="app.terraform.io/TFE_PoV/db-module/aws"
-}
-variable "module_version" {
-  description = "Version of the module"
-  default ="2.0.0"
-}
+
 variable "module_output1" {
   description = "Placeholder for a module output name"
   default ="db_ip_addr"

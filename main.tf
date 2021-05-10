@@ -7,8 +7,8 @@ provider "tfe" {
 
 # Deploys desired module
 module "db-module" {
-  source  = var.module_reference
-  version = var.module_version
+  source  = "app.terraform.io/TFE_PoV/db-module/aws"
+  version = "2.0.0"
 }
 
 # Configures user access
@@ -47,9 +47,16 @@ resource "tfe_workspace" "development" {
 # Set variables
 resource "tfe_variable" "development_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = var.aws_access_key
+  value        = "1234"
   category     = "env"
   sensitive     = true
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "module_output1" {
+  key          = "Module Output 1"
+  value        = [module.db-module.${var.module_output1}]
+  category     = "terraform"
+  sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "workspace_var_development" {
