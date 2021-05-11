@@ -75,9 +75,9 @@ vault write aws/roles/create-rds \
                 "rds:CreateDBInstance"
             ],
             "Resource": [
-                "arn:aws:rds:*:*:db:test*",
-                "arn:aws:rds:*:*:og:default*",
-                "arn:aws:rds:*:*:pg:default*",
+                "arn:aws:rds:*:*:db:*",
+                "arn:aws:rds:*:*:og:*",
+                "arn:aws:rds:*:*:pg:*",
                 "arn:aws:rds:*:*:subgrp:default"
             ]
         },

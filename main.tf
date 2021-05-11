@@ -53,7 +53,13 @@ resource "tfe_team" "developers" {
 **/
 
 resource "tfe_team_access" "development-dev" {
-  access       = "write"
+  permissions  = {
+    runs = "apply"
+    variables = "write"
+    state_versions= "none"
+    sentinel_mocks = "none"
+    workspace_locking = "false"
+  }
   team_id      = var.team_id #"${tfe_team.developers.id}"
   workspace_id = "${tfe_workspace.development.id}"
 }
@@ -84,14 +90,14 @@ resource "tfe_variable" "development_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
   value        = ""
   category     = "env"
-  sensitive     = true
+  sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "development_aws_session_token" {
   key          = "AWS_SESSION_TOKEN"
   value        = ""
   category     = "env"
-  sensitive     = true
+  sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "development_aws_region" {
@@ -117,7 +123,7 @@ resource "tfe_variable" "module_output2" {
 }
 resource "tfe_variable" "vault_url" {
   key          = "vault_url"
-  value        = ""
+  value        = var.vault_url
   category     = "terraform"
   sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
@@ -147,13 +153,13 @@ resource "tfe_variable" "vault_aws_role" {
   key          = "vault_aws_role"
   value        = ""
   category     = "terraform"
-  sensitive     = true
+  sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "vault_aws_secret_path" {
   key          = "vault_aws_secret_path"
   value        = ""
   category     = "terraform"
-  sensitive     = true
+  sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
 }
