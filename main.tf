@@ -38,12 +38,11 @@ resource "tfe_team_access" "development-dev" {
 resource "tfe_workspace" "development" {
   name         = var.workspace_name
   organization = var.organization
-  auto_apply   = true
-  queue_all_runs = false
+  auto_apply   = false
   terraform_version = var.terraform_version
 
   vcs_repo {
-    branch         = "master"
+    # branch         = "master"
     identifier     = var.vcs_identifier
     oauth_token_id = var.oauth_token
   }
@@ -53,6 +52,20 @@ resource "tfe_workspace" "development" {
 # Set variables
 resource "tfe_variable" "development_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
+  value        = "1234"
+  category     = "env"
+  sensitive     = true
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "development_aws_access_key" {
+  key          = "AWS_SECRET_ACCESS_KEY"
+  value        = "1234"
+  category     = "env"
+  sensitive     = true
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "development_aws_access_key" {
+  key          = "AWS_SESSION_TOKEN"
   value        = "1234"
   category     = "env"
   sensitive     = true
@@ -98,5 +111,19 @@ resource "tfe_variable" "set_owner" {
   key          = "Owner"
   value        = var.workspace_owner
   category     = "env"
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "vault_aws_role" {
+  key          = "vault_userpass"
+  value        = ""
+  category     = "terraform"
+  sensitive     = true
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "vault_aws_secret_path" {
+  key          = "vault_userpass"
+  value        = ""
+  category     = "terraform"
+  sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
 }

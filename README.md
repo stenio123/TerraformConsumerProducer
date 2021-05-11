@@ -23,7 +23,7 @@ path "*" {
 }
 
 vault write auth/userpass/users/developer  password=123  policies=admin
-vault write auth/userpass/users/developer  password=123  policies=admin
+vault write auth/userpass/users/manager  password=123  policies=admin
 
 ## Secret Engine
 vault secrets enable kv -version=1 -path=secret
@@ -36,7 +36,7 @@ vault write aws/config/root \
     secret_key=SECRET \
     region=us-east-1
 
-vault write aws3/roles/create-ec2 \
+vault write aws/roles/create-ec2 \
     credential_type=iam_user \
     policy_document=-<<EOF
 {
@@ -50,6 +50,8 @@ vault write aws3/roles/create-ec2 \
   ]
 }
 EOF
+
+vault read aws/creds/create-ec2
 
 storage "file" {
   path    = "/home/ec2-user/data"
