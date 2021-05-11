@@ -57,14 +57,14 @@ resource "tfe_variable" "development_aws_access_key" {
   sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
 }
-resource "tfe_variable" "development_aws_access_key" {
+resource "tfe_variable" "development_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
   value        = "1234"
   category     = "env"
   sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
 }
-resource "tfe_variable" "development_aws_access_key" {
+resource "tfe_variable" "development_aws_session_token" {
   key          = "AWS_SESSION_TOKEN"
   value        = "1234"
   category     = "env"
