@@ -54,7 +54,7 @@ resource "tfe_variable" "development_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
   value        = ""
   category     = "env"
-  sensitive     = true
+  sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "development_aws_secret_key" {
@@ -71,6 +71,13 @@ resource "tfe_variable" "development_aws_session_token" {
   sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
 }
+resource "tfe_variable" "development_aws_region" {
+  key          = "AWS_REGION"
+  value        = "us-east-1"
+  category     = "env"
+  sensitive     = false
+  workspace_id = "${tfe_workspace.development.id}"
+}
 resource "tfe_variable" "module_output1" {
   key          = "db_ip_addr"
   value        = module.db-module.db_ip_addr
@@ -81,6 +88,13 @@ resource "tfe_variable" "module_output1" {
 resource "tfe_variable" "module_output2" {
   key          = "vault_secret_path"
   value        = module.db-module.vault_secret_path
+  category     = "terraform"
+  sensitive     = false
+  workspace_id = "${tfe_workspace.development.id}"
+}
+resource "tfe_variable" "vault_url" {
+  key          = "vault_url"
+  value        = ""
   category     = "terraform"
   sensitive     = false
   workspace_id = "${tfe_workspace.development.id}"
@@ -97,13 +111,6 @@ resource "tfe_variable" "vault_userpass" {
   value        = ""
   category     = "terraform"
   sensitive     = true
-  workspace_id = "${tfe_workspace.development.id}"
-}
-resource "tfe_variable" "workspace_var_development" {
-  key      = "workspace_name"
-  value    = var.workspace_name
-  category = "terraform"
-
   workspace_id = "${tfe_workspace.development.id}"
 }
 

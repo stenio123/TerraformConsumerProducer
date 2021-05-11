@@ -10,6 +10,10 @@ Demonstrates how Terraform Cloud Provider can be used to trigger execution of ex
 
 3. This code assumes that Developer already registered in Terraform cloud and assigned a team. If that is not the case there is commented code that can also create and register new user and/or team in Terraform
 
+4. You could opt to also populate workspace with AWS (or other cloud) credentials. However we decided not to do this here, relying on the Vault provider in the Consumer repo.
+
+5. To be used in conjunction with https://github.com/stenio123/ServiceNowTerraformDemo
+
 ## Vault Requirements
 For this demo, you need an existing Vault with the following
 - userpass auth method enabled
@@ -46,6 +50,11 @@ vault write aws/roles/create-ec2 \
       "Effect": "Allow",
       "Action": "ec2:*",
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "iam:*",
+      "Resource": "*"
     }
   ]
 }
@@ -53,6 +62,7 @@ EOF
 
 vault read aws/creds/create-ec2
 
+# Sample Vault server config
 storage "file" {
   path    = "/home/ec2-user/data"
 }
