@@ -52,21 +52,21 @@ resource "tfe_workspace" "development" {
 # Set variables
 resource "tfe_variable" "development_aws_access_key" {
   key          = "AWS_ACCESS_KEY_ID"
-  value        = "1234"
+  value        = ""
   category     = "env"
   sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "development_aws_secret_key" {
   key          = "AWS_SECRET_ACCESS_KEY"
-  value        = "1234"
+  value        = ""
   category     = "env"
   sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "development_aws_session_token" {
   key          = "AWS_SESSION_TOKEN"
-  value        = "1234"
+  value        = ""
   category     = "env"
   sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
@@ -114,14 +114,14 @@ resource "tfe_variable" "set_owner" {
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "vault_aws_role" {
-  key          = "vault_userpass"
+  key          = "vault_aws_role"
   value        = ""
   category     = "terraform"
   sensitive     = true
   workspace_id = "${tfe_workspace.development.id}"
 }
 resource "tfe_variable" "vault_aws_secret_path" {
-  key          = "vault_userpass"
+  key          = "vault_aws_secret_path"
   value        = ""
   category     = "terraform"
   sensitive     = true
