@@ -53,7 +53,7 @@ resource "tfe_team" "developers" {
 **/
 
 resource "tfe_team_access" "development-dev" {
-  permissions  = {
+  permissions   {
     runs = "apply"
     variables = "write"
     state_versions= "none"
