@@ -62,6 +62,34 @@ EOF
 
 vault read aws/creds/create-ec2
 
+vault write aws/roles/create-rds \
+    credential_type=iam_user \
+    policy_document=-<<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowCreateDBInstanceOnly",
+            "Effect": "Allow",
+            "Action": [
+                "rds:CreateDBInstance"
+            ],
+            "Resource": [
+                "arn:aws:rds:*:*:db:test*",
+                "arn:aws:rds:*:*:og:default*",
+                "arn:aws:rds:*:*:pg:default*",
+                "arn:aws:rds:*:*:subgrp:default"
+            ]
+        },
+        {
+          "Effect": "Allow",
+          "Action": "iam:*",
+          "Resource": "*"
+        }
+    ]
+}
+EOF
+
 # Sample Vault server config
 storage "file" {
   path    = "/home/ec2-user/data"

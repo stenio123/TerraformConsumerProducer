@@ -56,3 +56,13 @@ variable "vault_userpass" {
   description = "Placeholder for another module output name"
   default =""
 }
+
+variable "vault_aws_role" {
+  description = "AWS role for Vault to create"
+  default= "create-rds"
+
+}
+variable "vault_aws_secret_path" {
+  description = "AWS secret path in Vault"
+  default="aws"
+}

@@ -1,3 +1,26 @@
+# Retrieve AWS API keys from Vault
+provider "vault" {
+  address = var.vault_url
+  auth_login {
+    path = "auth/userpass/login/${var.vault_username}"
+
+    parameters = {
+      password = var.vault_userpass
+    }
+  }
+}
+
+data "vault_aws_access_credentials" "creds" {
+  backend = var.vault_aws_secret_path
+  role    = var.vault_aws_role
+}
+
+provider "aws" {
+  access_key = "${data.vault_aws_access_credentials.creds.access_key}"
+  secret_key = "${data.vault_aws_access_credentials.creds.secret_key}"
+}
+
+
 # Based on the original code of https://github.com/AdamCavaliere/Producer-Repo
 
 provider "tfe" {
